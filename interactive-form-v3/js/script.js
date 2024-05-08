@@ -6,8 +6,6 @@ const jobSelector = document.getElementById('title');
 const otherJob = document.querySelector('option[value=other]');
 const colorSelect = document.getElementById('color');
 const designSelect = document.getElementById('design');
-const jsPunsOption = colorSelect.querySelectorAll('option[data-theme="js puns"]');
-const heartJsOption = colorSelect.querySelectorAll('option[data-theme="heart js"]');
 
 // Focus on the name field
 
@@ -28,8 +26,11 @@ colorSelect.disabled = true;
 // Change the available options on the colorSelect menu based on the user's choice of design.
 
 designSelect.addEventListener('change', (event) => {
-    if(event.target.value === 'js puns') {
-        jsPunsOption.disabled = false;
-        heartJsOption.disabled = true;
-    }
-})
+    colorSelect.disabled = false;
+    const userChoice = event.target.value;
+
+    Array.from(colorSelect.options).forEach(option => {
+        option.disabled = option.getAttribute('data-theme') !== userChoice;
+        option.style.display = option.disabled ? 'none' : 'block';
+    });
+});
