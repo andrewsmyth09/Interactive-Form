@@ -9,6 +9,14 @@ const designSelect = document.getElementById('design');
 const activityRegister = document.getElementById('activities');
 const total_cost_field = document.getElementById('activities-cost');
 const payment_menu = document.getElementById('payment');
+const form = document.querySelector('form');
+
+// HINT SELECTORS
+
+const nameHint = document.getElementById('name-hint');
+const emailHint = document.getElementById('email-hint');
+const ccHint = document.getElementById('cc-hint');
+const zipHint = document.getElementById('zip-hint');
 
 // REUSABLE FUNCTIONS
 
@@ -71,3 +79,11 @@ payment_menu.addEventListener('change', (event) => {
 });
 
 // Validate the user's input in the form.
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // Check "Name" field is not blank or empty
+    if(nameField.value.trim() === '') {
+        console.log('Field is empty');
+    }
+})
