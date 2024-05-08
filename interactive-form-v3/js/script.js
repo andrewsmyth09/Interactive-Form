@@ -6,6 +6,8 @@ const jobSelector = document.getElementById('title');
 const otherJob = document.querySelector('option[value=other]');
 const colorSelect = document.getElementById('color');
 const designSelect = document.getElementById('design');
+const activityRegister = document.getElementById('activities');
+const total_cost_field = document.getElementById('activities-cost');
 
 // Focus on the name field
 
@@ -34,3 +36,14 @@ designSelect.addEventListener('change', (event) => {
         option.style.display = option.disabled ? 'none' : 'block';
     });
 });
+
+// Reflect the total cost of all selected items in the 'Register for Activities' section
+let total_cost = 0;
+
+activityRegister.addEventListener('change', (event) => {
+    const checkedStatus = event.target.checked;
+    const activityPrice = parseInt(event.target.dataset.cost);
+    
+    checkedStatus ? total_cost += activityPrice : total_cost -= activityPrice;
+    total_cost_field.textContent = `Total: $${total_cost}`
+})
