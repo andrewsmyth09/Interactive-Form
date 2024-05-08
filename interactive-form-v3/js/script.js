@@ -39,7 +39,7 @@ designSelect.addEventListener('change', (event) => {
 
     Array.from(colorSelect.options).forEach(option => {
         option.disabled = option.getAttribute('data-theme') !== userChoice;
-        option.style.display = option.disabled ? 'none' : 'block';
+        option.disabled ? hideBlock(option) : showBlock(option);
     });
 });
 
