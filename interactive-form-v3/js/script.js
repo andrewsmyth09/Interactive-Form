@@ -39,10 +39,6 @@ activityRegister.addEventListener('change', (event) => {
 
 // Show the appropriate payment section for the user's chosen payment method.
 
-const creditCard = document.getElementById('credit-card');
-const paypal = document.getElementById('paypal');
-const bitcoin = document.getElementById('bitcoin');
-
 hideBlock(paypal);
 hideBlock(bitcoin);
 
@@ -77,7 +73,7 @@ form.addEventListener('submit', (event) => {
     });
 
     // Check the credit card is the selected payment option.
-    if(payment_menu.value === 'select method' || payment_menu.value === 'credit-card') {
+    if(payment_menu.value === 'credit-card') {
         // Check the credit card number is between 13 and 16 digits.
         fieldRegexValidator(cardNumberField, /^\d{13,16}$/, ccHint);
 

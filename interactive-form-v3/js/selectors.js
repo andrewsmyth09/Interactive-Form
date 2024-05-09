@@ -24,6 +24,9 @@ const form = document.querySelector('form');
 const cardNumberField = document.getElementById('cc-num');
 const zipCodeField = document.getElementById('zip');
 const cvvField = document.getElementById('cvv');
+const creditCard = document.getElementById('credit-card');
+const paypal = document.getElementById('paypal');
+const bitcoin = document.getElementById('bitcoin');
 
 // HINT SELECTORS
 
