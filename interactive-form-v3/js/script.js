@@ -10,11 +10,14 @@ const activityRegister = document.getElementById('activities');
 const total_cost_field = document.getElementById('activities-cost');
 const payment_menu = document.getElementById('payment');
 const form = document.querySelector('form');
+const email = document.getElementById('email');
+const checkbox = document.querySelectorAll('input[type="checkbox"]');
 
 // HINT SELECTORS
 
 const nameHint = document.getElementById('name-hint');
 const emailHint = document.getElementById('email-hint');
+const checkboxHint = document.getElementById('activities-hint');
 const ccHint = document.getElementById('cc-hint');
 const zipHint = document.getElementById('zip-hint');
 
@@ -82,8 +85,27 @@ payment_menu.addEventListener('change', (event) => {
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    // Check "Name" field is not blank or empty
+    // Check "Name" field is not blank or empty.
     if(nameField.value.trim() === '') {
-        console.log('Field is empty');
-    }
-})
+        showBlock(nameHint);
+    };
+
+    // Check the email address is formatted correctly.
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if(!emailRegex.test(email.value)) {
+        showBlock(emailHint);
+    };
+
+    // Check at least one check box is checked in "Register for Activities"
+    const checkArray = Array.from(checkbox);
+    let false_checkbox_count = 0;
+    checkArray.forEach(box => {
+        if(!box.checked) {
+            false_checkbox_count += 1;
+        };
+
+        if(false_checkbox_count === checkArray.length) {
+            showBlock(checkboxHint);
+        };
+    });
+});
