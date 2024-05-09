@@ -66,9 +66,11 @@ form.addEventListener('submit', (event) => {
         };
 
         if(falseCheckboxCount === checkArray.length) {
-            showBlock(checkboxHint);
+            inValidField(activityRegister, checkboxHint);
             preventSubmit();
-        };
+        } else {
+            validField(activityRegister, checkboxHint);
+        }
     });
 
     // Check the credit card is the selected payment option.
