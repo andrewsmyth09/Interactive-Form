@@ -1,33 +1,3 @@
-// FIELD SELECTORS
-
-const nameField = document.getElementById('name');
-const otherJobField = document.getElementById('other-job-role');
-const jobSelector = document.getElementById('title');
-const otherJob = document.querySelector('option[value=other]');
-const colorSelect = document.getElementById('color');
-const designSelect = document.getElementById('design');
-const activityRegister = document.getElementById('activities');
-const total_cost_field = document.getElementById('activities-cost');
-const payment_menu = document.getElementById('payment');
-const form = document.querySelector('form');
-const email = document.getElementById('email');
-const checkbox = document.querySelectorAll('input[type="checkbox"]');
-const cardNumberField = document.getElementById('cc-num');
-const zipCodeField = document.getElementById('zip');
-
-// HINT SELECTORS
-
-const nameHint = document.getElementById('name-hint');
-const emailHint = document.getElementById('email-hint');
-const checkboxHint = document.getElementById('activities-hint');
-const ccHint = document.getElementById('cc-hint');
-const zipHint = document.getElementById('zip-hint');
-
-// REUSABLE FUNCTIONS
-
-const hideBlock = block => block.style.display = 'none';
-const showBlock = block => block.style.display = 'block';
-
 // Focus on the name field.
 
 nameField.focus();
@@ -86,40 +56,35 @@ payment_menu.addEventListener('change', (event) => {
 // Validate the user's input in the form.
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault();
     // Check "Name" field is not blank or empty.
-    if(nameField.value.trim() === '') {
-        showBlock(nameHint);
-    };
+    fieldRegexValidator(nameField, /\S/, nameHint);
 
     // Check the email address is formatted correctly.
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(!emailRegex.test(email.value)) {
-        showBlock(emailHint);
-    };
+    fieldRegexValidator(email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, emailHint);
 
     // Check at least one check box is checked in "Register for Activities".
     const checkArray = Array.from(checkbox);
-    let false_checkbox_count = 0;
+    let falseCheckboxCount = 0;
     checkArray.forEach(box => {
         if(!box.checked) {
-            false_checkbox_count += 1;
+            falseCheckboxCount += 1;
         };
 
-        if(false_checkbox_count === checkArray.length) {
+        if(falseCheckboxCount === checkArray.length) {
             showBlock(checkboxHint);
+            preventSubmit();
         };
     });
 
-    // Check the credit card number is between 13 and 16 digits.
-    const cardNumberRegex = /^\d{13,16}$/;
-    if(!cardNumberRegex.test(cardNumberField.value)) {
-        showBlock(ccHint);
-    }
+    // Check the credit card is the selected payment option.
+    if(payment_menu.value === 'select method' || payment_menu.value === 'credit-card') {
+        // Check the credit card number is between 13 and 16 digits.
+        fieldRegexValidator(cardNumberField, /^\d{13,16}$/, ccHint);
 
-    // Check the zip code is 5 digits
-    const zipCodeRegex = /^\d{5}$/;
-    if(!zipCodeRegex.test(zipCodeField.value)) {
-        showBlock(zipHint);
-    }
+        // Check the zip code is 5 digits.
+        fieldRegexValidator(zipCodeField, /^\d{5}$/, zipHint);
+
+        // Check the CVV code is 3 digits.
+        fieldRegexValidator(cvvField, /^\d{3}$/, cvvHint);
+    };
 });
