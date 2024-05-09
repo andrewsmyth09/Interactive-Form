@@ -12,6 +12,8 @@ const payment_menu = document.getElementById('payment');
 const form = document.querySelector('form');
 const email = document.getElementById('email');
 const checkbox = document.querySelectorAll('input[type="checkbox"]');
+const cardNumberField = document.getElementById('cc-num');
+const zipCodeField = document.getElementById('zip');
 
 // HINT SELECTORS
 
@@ -96,7 +98,7 @@ form.addEventListener('submit', (event) => {
         showBlock(emailHint);
     };
 
-    // Check at least one check box is checked in "Register for Activities"
+    // Check at least one check box is checked in "Register for Activities".
     const checkArray = Array.from(checkbox);
     let false_checkbox_count = 0;
     checkArray.forEach(box => {
@@ -108,4 +110,16 @@ form.addEventListener('submit', (event) => {
             showBlock(checkboxHint);
         };
     });
+
+    // Check the credit card number is between 13 and 16 digits.
+    const cardNumberRegex = /^\d{13,16}$/;
+    if(!cardNumberRegex.test(cardNumberField.value)) {
+        showBlock(ccHint);
+    }
+
+    // Check the zip code is 5 digits
+    const zipCodeRegex = /^\d{5}$/;
+    if(!zipCodeRegex.test(zipCodeField.value)) {
+        showBlock(zipHint);
+    }
 });
