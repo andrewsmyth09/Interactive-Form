@@ -16,6 +16,7 @@ const designSelect = document.getElementById('design');
 const activityRegister = document.getElementById('activities');
 const total_cost_field = document.getElementById('activities-cost');
 const checkbox = document.querySelectorAll('input[type="checkbox"]');
+const checkArray = Array.from(checkbox);
 
 // PAYMENT INFO SELECTORS
 

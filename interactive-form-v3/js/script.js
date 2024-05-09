@@ -59,7 +59,6 @@ form.addEventListener('submit', (event) => {
     fieldRegexValidator(email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, emailHint);
 
     // Check at least one check box is checked in "Register for Activities".
-    const checkArray = Array.from(checkbox);
     let falseCheckboxCount = 0;
     checkArray.forEach(box => {
         if(!box.checked) {
@@ -84,3 +83,11 @@ form.addEventListener('submit', (event) => {
         fieldRegexValidator(cvvField, /^\d{3}$/, cvvHint);
     };
 });
+
+// Focus and blur out of each checkbox that the user tabs on with the keyboard.
+
+checkArray.forEach((checkbox) => {
+    const label = checkbox.closest('label');
+    checkbox.addEventListener('focus', () => label.classList.add('focus'));
+    checkbox.addEventListener('blur', () => label.classList.remove('focus'));
+  });
