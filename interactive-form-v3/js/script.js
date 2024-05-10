@@ -32,9 +32,23 @@ let total_cost = 0;
 activityRegister.addEventListener('change', (event) => {
     const checkedStatus = event.target.checked;
     const activityPrice = parseInt(event.target.dataset.cost);
-    
-    checkedStatus ? total_cost += activityPrice : total_cost -= activityPrice;
-    total_cost_field.textContent = `Total: $${total_cost}`
+    const checkBoxTime = event.target.getAttribute('data-day-and-time');
+
+    checkedStatus ? total_cost += activityPrice : total_cost -= activityPrice; // Update total cost for checked and unchecked checkboxes
+    total_cost_field.textContent = `Total: $${total_cost}`;
+
+    // Enable/disable activites that are on the same day and time as a checked box.
+    checkArray.forEach(box => {
+        if(box !== event.target && box.getAttribute('data-day-and-time') === checkBoxTime) { // Check if the checkbox is not the event target
+            if (checkedStatus) {
+                box.disabled = true;
+                box.parentElement.classList.add('disabled');
+            } else {
+                box.disabled = false;
+                box.parentElement.classList.remove('disabled');
+            }
+        }
+    });
 });
 
 // Show the appropriate payment section for the user's chosen payment method.
@@ -51,7 +65,7 @@ payment_menu.addEventListener('change', (event) => {
 
 // Validate the user's input in the form.
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', () => {
     // Check "Name" field is not blank or empty.
     fieldRegexValidator(nameField, /\S/, nameHint);
 
@@ -92,4 +106,10 @@ checkArray.forEach((checkbox) => {
     const label = checkbox.closest('label');
     checkbox.addEventListener('focus', () => label.classList.add('focus'));
     checkbox.addEventListener('blur', () => label.classList.remove('focus'));
+  });
+
+  // Real-Time error message for the name input field.
+
+  nameField.addEventListener('keyup', () => {
+    fieldRegexValidator(nameField, /\S/, nameHint);
   });
