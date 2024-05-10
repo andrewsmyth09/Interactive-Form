@@ -10,17 +10,16 @@ const preventSubmit = () => event.preventDefault();
 // This function creates an empty message warning for empty input text fields.
 
 const emptyMessage = (parentElement) => {
-    // Check if the parent element already contains a child with id 'empty-hint'
     const existingHint = parentElement.querySelector('#empty-hint');
+    const firstChild = parentElement.firstChild.textContent.replace(/:/g, "");
     if (existingHint) {
-        return existingHint; // Return the existing span element
+        return existingHint; 
     } else {
-        // Create a new span element
         const emptyHintSpan = document.createElement('span');
         emptyHintSpan.id = 'empty-hint';
         emptyHintSpan.classList.add('empty-hint', 'hint');
-        emptyHintSpan.textContent = 'Please fill in the blank space.';
-        return emptyHintSpan; // Return the created span element
+        emptyHintSpan.textContent = `${firstChild}field cannot be blank`;
+        return emptyHintSpan; 
     }
 };
 
@@ -41,8 +40,6 @@ const fieldRegexValidator = (selector, regex, hint) => {
         validField(parentElement, hint);
     }
 };
-
-
 
 // Bring out a visible error message if the field is invalid.
 
