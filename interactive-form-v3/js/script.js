@@ -18,6 +18,7 @@ colorSelect.disabled = true;
 
 designSelect.addEventListener('change', (event) => {
     colorSelect.disabled = false;
+    colorSelect.selectedIndex = 0;
     const userChoice = event.target.value;
 
     Array.from(colorSelect.options).forEach(option => {
@@ -52,7 +53,7 @@ activityRegister.addEventListener('change', (event) => {
 });
 
 // Show the appropriate payment section for the user's chosen payment method.
-
+payment_menu.selectedIndex = 1;
 hideBlock(paypal);
 hideBlock(bitcoin);
 
